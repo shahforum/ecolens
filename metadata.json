@@ -1,0 +1,12 @@
+{
+  "name": "EcoLens AI",
+  "description": "Real-time AI vision for circular waste management. Get localized recycling, reuse, and reduction instructions instantly.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "Computer Vision",
+    "LLM Recommendations",
+    "Sustainability Tracking"
+  ]
+}
