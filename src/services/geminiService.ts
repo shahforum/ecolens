@@ -3,7 +3,10 @@ import { WasteAnalysis, WasteCategory } from "../types";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
 
-export async function analyzeWaste(imageData: string, zipCode: string = "90210"): Promise<WasteAnalysis> {
+export async function analyzeWaste(
+  imageData: string,
+  zipCode: string = "90210",
+): Promise<WasteAnalysis> {
   const prompt = `
     Analyze this waste item for a circular economy app called EcoLens AI.
     The user is located in ZIP code: ${zipCode}.
@@ -35,16 +38,16 @@ export async function analyzeWaste(imageData: string, zipCode: string = "90210")
             mimeType: "image/jpeg",
           },
         },
-        { text: prompt }
+        { text: prompt },
       ],
       config: {
-        responseMimeType: "application/json"
-      }
+        responseMimeType: "application/json",
+      },
     });
 
     const text = response.text;
     if (!text) throw new Error("Empty AI response");
-    
+
     return JSON.parse(text) as WasteAnalysis;
   } catch (error) {
     console.error("AI Analysis Error:", error);
@@ -54,11 +57,19 @@ export async function analyzeWaste(imageData: string, zipCode: string = "90210")
       material: "PET Plastic",
       confidence: 0.85,
       instructions: {
-        [WasteCategory.REDUCE]: ["Use a stainless steel reusable bottle", "Buy in bulk to reduce packaging"],
-        [WasteCategory.REUSE]: ["Create a self-watering planter", "Use as a bird feeder"],
-        [WasteCategory.RECYCLE]: "Rinse thoroughly, crush, and place in the blue bin with the cap ON."
+        [WasteCategory.REDUCE]: [
+          "Use a stainless steel reusable bottle",
+          "Buy in bulk to reduce packaging",
+        ],
+        [WasteCategory.REUSE]: [
+          "Create a self-watering planter",
+          "Use as a bird feeder",
+        ],
+        [WasteCategory.RECYCLE]:
+          "Rinse thoroughly, crush, and place in the blue bin with the cap ON.",
       },
-      environmentalImpact: "Recycling one plastic bottle saves enough energy to power a 60W lightbulb for 6 hours."
+      environmentalImpact:
+        "Recycling one plastic bottle saves enough energy to power a 60W lightbulb for 6 hours.",
     };
   }
 }

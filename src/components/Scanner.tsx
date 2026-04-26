@@ -12,10 +12,13 @@ import {
   ShieldCheck,
   X,
   ScanLine,
+  Sparkles,
 } from "lucide-react";
 import { analyzeWaste } from "../services/geminiService";
 import { WasteAnalysis, WasteCategory } from "../types";
 import confetti from "canvas-confetti";
+import UpcyclingLab from "./UpcyclingLab";
+import ImpactPulse from "./ImpactPulse";
 
 export default function Scanner() {
   const [activeTab, setActiveTab] = useState<"scan" | "history" | "profile">(
@@ -24,6 +27,7 @@ export default function Scanner() {
   const [isScanning, setIsScanning] = useState(false);
   const [analysis, setAnalysis] = useState<WasteAnalysis | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const [showLab, setShowLab] = useState(false);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -145,7 +149,7 @@ export default function Scanner() {
             key="result-view"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="flex-1 glass-card p-10 overflow-y-auto mb-10 pb-20"
+            className="flex-1 glass-card p-10 overflow-y-auto mb-10 pb-20 no-scrollbar"
           >
             <div className="flex justify-between items-start mb-8">
               <div className="space-y-1">
@@ -162,10 +166,23 @@ export default function Scanner() {
               </button>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-12">
+              {/* Feature 2: Impact Pulse */}
+              <ImpactPulse material={analysis.material} />
+
               <section className="p-6 bg-mint-light rounded-2xl border border-sage/10">
-                <div className="flex items-center gap-2 mb-4 font-bold text-xs uppercase tracking-widest text-sage">
-                  <RotateCcw className="w-4 h-4" /> 01 Reuse
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-widest text-sage">
+                    <RotateCcw className="w-4 h-4" /> 01 Reuse
+                  </div>
+                  {/* Feature 1 CTA: Upcycling Lab */}
+                  <button
+                    onClick={() => setShowLab(true)}
+                    className="flex items-center gap-1.5 px-2 py-1 bg-forest text-white rounded-lg text-[9px] font-bold uppercase tracking-widest animate-pulse"
+                  >
+                    <Sparkles className="w-3 h-3" />
+                    Open Lab
+                  </button>
                 </div>
                 <ul className="space-y-2">
                   {analysis.instructions[WasteCategory.REUSE].map((u, i) => (
@@ -193,20 +210,22 @@ export default function Scanner() {
                   </div>
                 </div>
               </section>
-
-              <div className="text-center italic text-[11px] text-forest/40 px-4">
-                "{analysis.environmentalImpact}"
-              </div>
             </div>
 
-            <div className="mt-10">
+            <div className="mt-12 space-y-4">
               <button
                 onClick={() => setShowResult(false)}
                 className="btn-primary w-full shadow-lg"
               >
                 Scan Next Item
               </button>
+              <p className="text-center text-[10px] text-forest/30 font-medium">
+                Source: LA Sanitation Dept Guidelines v2024.1
+              </p>
             </div>
+
+            {/* Feature 1 Component */}
+            {showLab && <UpcyclingLab item={analysis} onOpen={showLab} />}
           </motion.div>
         )}
 
@@ -250,7 +269,7 @@ export default function Scanner() {
             <div className="w-24 h-24 rounded-3xl bg-forest flex items-center justify-center text-white text-3xl font-bold mb-6">
               AR
             </div>
-            <h3 className="text-2xl font-bold text-forest">Test User</h3>
+            <h3 className="text-2xl font-bold text-forest">Alex Rivera</h3>
             <p className="text-sage font-bold text-xs uppercase tracking-widest mt-1">
               Level 12 Eco Guardian
             </p>
