@@ -267,9 +267,9 @@ export default function Scanner() {
             className="pt-10 flex flex-col items-center"
           >
             <div className="w-24 h-24 rounded-3xl bg-forest flex items-center justify-center text-white text-3xl font-bold mb-6">
-              AR
+              TU
             </div>
-            <h3 className="text-2xl font-bold text-forest">Alex Rivera</h3>
+            <h3 className="text-2xl font-bold text-forest">Test User</h3>
             <p className="text-sage font-bold text-xs uppercase tracking-widest mt-1">
               Level 12 Eco Guardian
             </p>
