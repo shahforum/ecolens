@@ -33,26 +33,7 @@ const team = [
 ];
 
 const projectStory = `
-### The Genesis of EcoLens AI
-
-The inspiration for **EcoLens AI** came from a simple observation: most people *want* to be sustainable, but the complexity of municipal rules turns recycling into a guessing game. This leads to **"Wish-cycling"**, where non-recyclables contaminate entire batches. We realized that by leveraging real-time vision, we could provide clarity at the exact moment of disposal.
-
-#### The Tech Behind the Lens
-We built the prototype using a combination of high-frequency computer vision and a localized Decision Engine. By integrating the **Gemini 2.0 Flash** model, we achieved low-latency inference for material classification.
-
-The probability of correct classification $P(C)$ is modeled as:
-$$P(C | I) = \frac{\exp(f(I))}{\sum_{j} \exp(f_j(I))}$$
-where $I$ is the image input and $f(I)$ represents the feature weights assigned by our vision-transformer backbone.
-
-#### Challenges Faced
-1.  **Material Ambiguity**: Differentiating between HDPE and PET plastics in varied lighting conditions.
-2.  **Locality Complexity**: Aggregating diverse ZIP-code level regulations into a unified schema.
-3.  **Low Latency**: Ensuring the "Instant Identity" pillar felt instantaneous on mobile hardware.
-
-#### What We Learned
-Beyond the technical implementation, we learned about the **Circular Economy Invariant**:
-$$E_{total} = \sum (R_{educed} + R_{eused} + R_{ecycled}) - W_{asted}$$
-Maximizing sustainability isn't just about sorting; it's about shifting the behavior towards the top of the waste hierarchy (Reduce & Reuse).
+### 
 `;
 
 export default function About() {
